@@ -1,6 +1,5 @@
 'use strict';
 
-// By Cody Conroy
 var ans1 = ["one", "four", "three", "six"];
 var ques1 = "How many people can the legendary millennium  falcon fit in its cockpit?"; //Answer: Four
 
