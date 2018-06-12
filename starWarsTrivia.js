@@ -135,7 +135,7 @@ var handlers = {
   
   'answer' : function () {
     let ans = this.event.request.intent.slots.actAns.value;
-    this.response.speak(ansCheck(ans));
+    this.response.speak(ansCheck(ans)).listen("");
     this.emit(':responseReady');
   },
   
