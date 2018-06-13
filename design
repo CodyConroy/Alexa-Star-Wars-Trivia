@@ -1,0 +1,43 @@
+The first step in the Star Wars Trivia Game Skill was the creation of an object that could store both a question and list of answers.
+This object was named Trivia and has two inputs: a question and an answer. For this trivia game, an array of answers is needed, that way
+the user can ask for the list of answers if the user needs a little hlp with the question.
+
+The next chunk of code deals with the array that holds all of my Trivia objects. This array is named questions. The array starts as blank
+array, and then if a new question needs to be added, all that needs to be done is a "questions.push(new Trivia(*question*, *[answers]*));"
+This will put that new Trivia object at the end of the array while saving the others before it. Think of an array list in Java. 
+
+The first function that occurs in the Star Wars Trivia Skill is the getRandomInt() function. This function, quite literally, will get a 
+random integer from 0 (representing question 1) to 6 (representing question 7). This function is used many times throughout the Alexa 
+Skill.
+
+The first intent that the Alexa Skill encounters is 'introIntent'. 'introIntent' assigns the variable "num" to a random integer using the
+getRandomInt() function. This integer will represent a specific Trivia object within the "questions" array. The varibale "count" is
+also then reset back to 1. This is done because once the user wants to restart the trivia game, it will start by saying "Question 1: ..." 
+rather than just incrememnting the previous question number. For example, if the user left the previous game at question number 8 and 
+'introIntent' was not reset, Alexa would tell the user that they are now on question 9.  
+Alexa then goes on to tell the user the question that they were assigned. Along with this, count has been increased by 1, so the next 
+question will not be question 1, rather it will be question 2.
+
+The second intent is 'quesOpt'. All 'quesOpt' does is list the answer choices corresponding to the question that was previously asked. 
+Alexa does not automatically list the answer choices, however, rather the user must request a list of options in order for Alexa to do so. 
+This intent utilizes the global variable "num" which was assigned a random integer value in the previous intent. It is imperative that 
+this intent does not generate a random integer value for num because the same num value is needed to correctly list the answer choices
+for the previous question.
+
+The next intent is the 'answer' intent. This intent creates a temporary variable named ans which represents the user's inputted answer to
+the question. This intent utilizes the asnCheck() function, which is by far one of the most important and intricate functions of this
+Skill.
+
+There is also a 'leave' intent which just tells Alexa to stop. In order to get another question and start the game after this intent has
+been fired, the user must open star wars trivia again and start a new trivia game.
+
+The next intent is 'anotherQues' which is fired if the user asks alexa to ask another question. Once this intent occurs, "count" increases
+and a new random integer is assigned to "num".
+
+The final function of this Alexa Skill is "ansCheck(actAns)" where "actAns" is the user's answer and the function checks to see if that
+answer is correct or incorrect. If incorrect, Alexa will let the user know if their answer was in the list of options or not. This 
+function utilizies a series of if-else functions to determine the random number assigned to "num" which will tell Alexa which question
+the user is answering to. Alexa will then check to see if the answer is correct or incorrect. If correct, Alexa will simply say 
+"That is correct!" If incorrect, Alexa will first check to see if your answer is found within the array of answers for the current 
+question. This process utilizies a for loop which checks each index of the answer array. If the user's answer cannot be found within the
+answer array that corresponds to the question, then Alexa will inform the user of this tragedy. 
