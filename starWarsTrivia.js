@@ -189,7 +189,19 @@ var handlers = {
     let ans = this.event.request.intent.slots.actAns.value;
     this.response.speak(ansCheck(ans)).listen("");
     this.emit(':responseReady');
-    this.response.speak
+  },
+  
+  /** 
+   * The leave function simply just has alexa say a goodbye message to the user.
+   * In order to have alexa say her goodbye message, the user must say "stop",
+   * "goodbye", "I want out", "no more test", "stop this madness", "goodbye alexa",
+   * or "please let me leave." Once one of these phrases have been said, Alexa
+   * will exit the star wars trivia Skill.
+  */ 
+  
+  'leave': function() {
+    this.response.speak("Goodbye and may the force be with you.");
+    this.emit(':responseReady');
   },
   
   /** 
