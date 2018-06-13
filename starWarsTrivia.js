@@ -20,13 +20,13 @@ var ques3 = "What form of lightsaber combat does Obi Wan Kenobi use?"; //Answer:
 var ans4 = ["23,000 credits", "5,000 credits", "7,000 credits", "17,000 credits"];
 var ques4 = "How much total does Obi-Wan Kenobi agree to pay Han Solo for safe passage to Alderaan?"; //Answer: 17,000 credits
 
-var ans5 = ["Forging Imperial Documents", "Shipjacking", "Petty Theft", "Impersonating a Stormtrooper"]; //Answer: Impersonating a Stormtrooper
+var ans5 = ["forging imperial documents", "shipjacking", "petty theft", "impersonating a stormtrooper"]; //Answer: Impersonating a Stormtrooper
 var ques5 = "Which crime is not found on Jyn Erso's rap sheet?";
 
-var ans6 = ["'May the force be with you'", "Nothing", "'I found you'", "'I need your help'"]; //Answer: Nothing
+var ans6 = ["'may the force be with you'", "nothing", "'I found you'", "'I need your help'"]; //Answer: Nothing
 var ques6 = "At the end of Episode 7, Rey find Luke Skywalker and says what?";
 
-var ans7 = ["Bibble's Bar", "Chalmun's Spaceport Cantina", "Docking Bay 94 Port", "Adi's Port Cantina"]; //Answer: Chalmun's
+var ans7 = ["bibble's Bar", "chalmun's spaceport cantina", "docking bay 94 port", "adi's port cantina"]; //Answer: Chalmun's
 var ques7 = "What is the actual name of the Cantina where Obi-Wan and Luke meet Han and Chewie?";
 
 var num = 0;
@@ -304,46 +304,46 @@ function ansCheck(actAns) {
     }
   }
   else if(num == 4) {
-    if(actAns == "Impersonating a Stormtrooper") {
+    if(actAns == "impersonating a stormtrooper") {
       return "That is correct!";
     }
     for(let i = 0; i < ans5.length; i++) {
-      if(actAns != "Impersonating a Stormtrooper" && actAns == ans5[i]) {
+      if(actAns != "impersonating a stormtrooper" && actAns == ans5[i]) {
         return "That was an option, but incorrect. I pity your lack of intelligence";
       }
     }
     for(let i = 0; i < ans4.length; i++) {
-      if(actAns != "Impersonating a Stormtrooper" && actAns != ans5[i]) {
+      if(actAns != "impersonating a stormtrooper" && actAns != ans5[i]) {
         return "Dude. That wasn't even an option. What are you doing.";
       }
     }
   }
   else if(num == 5) {
-    if(actAns == "Nothing" || actAns == "She says nothing") {
+    if(actAns == "nothing" || actAns == "she says nothing") {
       return "That is correct!";
     }
     for(let i = 0; i < ans6.length; i++) {
-      if((actAns != "Nothing" || actAns != "She says nothing") && actAns == ans6[i]) {
+      if((actAns != "nothing" || actAns != "she says nothing") && actAns == ans6[i]) {
         return "That was an option, but incorrect. I pity your lack of intelligence";
       }
     }
     for(let i = 0; i < ans6.length; i++) {
-      if((actAns != "Nothing" || actAns != "She says nothing") && (actAns != ans6[i] || actAns != "She says nothing")) {
+      if((actAns != "nothing" || actAns != "she says nothing") && actAns != ans6[i]) {
         return "Dude. That wasn't even an option. What are you doing.";
       }
     }
   }
   else if(num == 6) {
-    if(actAns == "Chalmun's Spaceport Cantina" || actAns == "Chalmun's") {
+    if(actAns == "chalmun's spaceport cantina" || actAns == "chalmun's") {
       return "That is correct!";
     }
     for(let i = 0; i < ans7.length; i++) {
-      if((actAns != "Chalmun's Spaceport Cantina" || actAns != "Chalmun's") && actAns == ans7[i]) {
+      if((actAns != "chalmun's spaceport cantina" || actAns != "chalmun's") && actAns == ans7[i]) {
         return "That was an option, but incorrect. I pity your lack of intelligence";
       }
     }
     for(let i = 0; i < ans7.length; i++) {
-      if((actAns != "Chalmun's Spaceport Cantina" || actAns != "Chalmun's") && actAns != ans7[i]) {
+      if((actAns != "chalmun's spaceport cantina" || actAns != "chalmun's") && actAns != ans7[i]) {
         return "Dude. That wasn't even an option. What are you doing.";
       }
     }
