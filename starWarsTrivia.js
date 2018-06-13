@@ -26,7 +26,7 @@ var ques5 = "Which crime is not found on Jyn Erso's rap sheet?";
 var ans6 = ["'may the force be with you'", "nothing", "'I found you'", "'I need your help'"]; //Answer: Nothing
 var ques6 = "At the end of Episode 7, Rey find Luke Skywalker and says what?";
 
-var ans7 = ["bibble's Bar", "chalmun's spaceport cantina", "docking bay 94 port", "adi's port cantina"]; //Answer: Chalmun's
+var ans7 = ["bibble's bar", "chalmun's spaceport cantina", "docking bay 94 port", "adi's port cantina"]; //Answer: Chalmun's
 var ques7 = "What is the actual name of the Cantina where Obi-Wan and Luke meet Han and Chewie?";
 
 var num = 0;
@@ -60,32 +60,33 @@ var handlers = {
   
   'introIntent': function () { 
     num = getRandomInt();
+    count = 1;
     if(num == 0) {
-        this.response.speak("Questionn number " + count + ": " + ques1)
+        this.response.speak("Question number " + count + ": " + ques1)
             .listen("");
     }
     else if(num == 1) {
-        this.response.speak("Questionn number " + count + ": " + ques2)
+        this.response.speak("Question number " + count + ": " + ques2)
             .listen("");
     }
     else if(num == 2) {
-        this.response.speak("Questionn number " + count + ": " + ques3)
+        this.response.speak("Question number " + count + ": " + ques3)
             .listen("");
     }
     else if(num ==3) {
-        this.response.speak("Questionn number " + count + ": " + ques4)
+        this.response.speak("Question number " + count + ": " + ques4)
             .listen("");
     }
     else if(num ==4) {
-        this.response.speak("Questionn number " + count + ": " + ques5)
+        this.response.speak("Question number " + count + ": " + ques5)
             .listen("");
     }
     else if(num ==5) {
-        this.response.speak("Questionn number " + count + ": " + ques6)
+        this.response.speak("Question number " + count + ": " + ques6)
             .listen("");
     }
     else if(num ==6) {
-        this.response.speak("Questionn number " + count + ": " + ques7)
+        this.response.speak("Question number " + count + ": " + ques7)
             .listen("");
     }
     this.emit(':responseReady');
@@ -188,6 +189,7 @@ var handlers = {
     let ans = this.event.request.intent.slots.actAns.value;
     this.response.speak(ansCheck(ans)).listen("");
     this.emit(':responseReady');
+    this.response.speak
   },
   
   /** 
@@ -201,31 +203,31 @@ var handlers = {
     if(count > 1) {
       num = getRandomInt();
       if(num == 0) {
-        this.response.speak("Questionn number " + count + ": " + ques1)
+        this.response.speak("Question number " + count + ": " + ques1)
             .listen("");
       }
       else if(num == 1) {
-        this.response.speak("Questionn number " + count + ": " + ques2)
+        this.response.speak("Question number " + count + ": " + ques2)
             .listen("");
       }
       else if(num == 2) {
-        this.response.speak("Questionn number " + count + ": " + ques3)
+        this.response.speak("Question number " + count + ": " + ques3)
             .listen("");
       }
       else if(num ==3) {
-        this.response.speak("Questionn number " + count + ": " + ques4)
+        this.response.speak("Question number " + count + ": " + ques4)
             .listen("");
     }
     else if(num ==4) {
-        this.response.speak("Questionn number " + count + ": " + ques5)
+        this.response.speak("Question number " + count + ": " + ques5)
             .listen("");
     }
     else if(num ==5) {
-        this.response.speak("Questionn number " + count + ":" + ques6)
+        this.response.speak("Question number " + count + ":" + ques6)
             .listen("");
     }
     else if(num ==6) {
-        this.response.speak("Questionn number " + count + ": " + ques7)
+        this.response.speak("Question number " + count + ": " + ques7)
             .listen("");
     }
       this.emit(':responseReady');
