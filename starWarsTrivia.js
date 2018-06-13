@@ -1,34 +1,42 @@
 'use strict';
 
 /** 
- * Below are the gobal variables of my function. Most hold the string for the 
- * corresponding question while others are an array hoding the possible answers
- * to each question. The variable num is used within getRandomInt and holds the
- * value which lets alexa know which question to ask and which question to
- * list the answer options for.
+ * The function Trivia creates a Trivia object which will hold a question in the
+ * form of a string and also an array of answers.
  */
  
-var ans1 = ["one", "four", "three", "six"];
-var ques1 = "How many people can the legendary millennium  falcon fit in its cockpit?"; //Answer: Four
+function Trivia(ques, ans) {
+  this.ques = ques;
+  this.ans = ans;
+}
 
-var ans2 = ["mon cala", "hoth", "kamino", "dagobah"];
-var ques2 = "What planet does the famous Admiral Ackbar call his homeland?"; //Answer: Mon Cala
+/**
+ * Below is an array which holds various Trivia objects. There are seven total
+ * Trivia objects representing seven different questions.
+ */ 
+ 
+var questions = [];
+questions.push(new Trivia("How many people can the legendary millennium  falcon fit in its cockpit?", 
+                          ["one", "four", "three", "six"])); //Answer: Four
+questions.push(new Trivia("What planet does the famous Admiral Ackbar call his homeland?", 
+                          ["mon cala", "hoth", "kamino", "dagobah"])); //Answer: Mon Cala
+questions.push(new Trivia("What form of lightsaber combat does Obi Wan Kenobi use?", 
+                          ["shii-cho", "niman", "soresu", "juyo"])); //Answer: Soresu
+questions.push(new Trivia("How much total does Obi-Wan Kenobi agree to pay Han Solo for safe passage to Alderaan?", 
+                          ["23,000 credits", "5,000 credits", "7,000 credits", "17,000 credits"])); //Answer: 17,000 credits
+questions.push(new Trivia("Which crime is not found on Jyn Erso's rap sheet?", 
+                          ["forging imperial documents", "shipjacking", "petty theft", "impersonating a stormtrooper"])); //Answer: Impersonating a Stormtrooper
+questions.push(new Trivia("At the end of Episode 7, Rey finds Luke Skywalker and says what?", 
+                          ["'may the force be with you'", "nothing", "'I found you'", "'I need your help'"])); //Answer: Nothing
+questions.push(new Trivia("What is the actual name of the Cantina where Obi-Wan and Luke meet Han and Chewie?", 
+                          ["bibble's bar", "chalmun's spaceport cantina", "docking bay 94 port", "adi's port cantina"])); //Answer: Chalmun's
 
-var ans3 = ["shii-cho", "niman", "soresu", "juyo"];
-var ques3 = "What form of lightsaber combat does Obi Wan Kenobi use?"; //Answer: Soresu
-
-var ans4 = ["23,000 credits", "5,000 credits", "7,000 credits", "17,000 credits"];
-var ques4 = "How much total does Obi-Wan Kenobi agree to pay Han Solo for safe passage to Alderaan?"; //Answer: 17,000 credits
-
-var ans5 = ["forging imperial documents", "shipjacking", "petty theft", "impersonating a stormtrooper"]; //Answer: Impersonating a Stormtrooper
-var ques5 = "Which crime is not found on Jyn Erso's rap sheet?";
-
-var ans6 = ["'may the force be with you'", "nothing", "'I found you'", "'I need your help'"]; //Answer: Nothing
-var ques6 = "At the end of Episode 7, Rey find Luke Skywalker and says what?";
-
-var ans7 = ["bibble's bar", "chalmun's spaceport cantina", "docking bay 94 port", "adi's port cantina"]; //Answer: Chalmun's
-var ques7 = "What is the actual name of the Cantina where Obi-Wan and Luke meet Han and Chewie?";
-
+/**
+ * var num will be the question that the random number henerator generates, and
+ * count will be the number of questions asked for your current Trivia Game
+ * session.
+ */
+ 
 var num = 0;
 var count = 1;
 
@@ -39,7 +47,7 @@ var count = 1;
  */
  
 function getRandomInt() {
-  let max = 6;
+  let max = questions.length;
   return Math.floor(Math.random() * (max + 1));
 }
 
@@ -58,37 +66,10 @@ var handlers = {
    * question.
   */ 
   
-  'introIntent': function () { 
+  'introIntent': function(num) { 
     num = getRandomInt();
     count = 1;
-    if(num == 0) {
-        this.response.speak("Question number " + count + ": " + ques1)
-            .listen("");
-    }
-    else if(num == 1) {
-        this.response.speak("Question number " + count + ": " + ques2)
-            .listen("");
-    }
-    else if(num == 2) {
-        this.response.speak("Question number " + count + ": " + ques3)
-            .listen("");
-    }
-    else if(num ==3) {
-        this.response.speak("Question number " + count + ": " + ques4)
-            .listen("");
-    }
-    else if(num ==4) {
-        this.response.speak("Question number " + count + ": " + ques5)
-            .listen("");
-    }
-    else if(num ==5) {
-        this.response.speak("Question number " + count + ": " + ques6)
-            .listen("");
-    }
-    else if(num ==6) {
-        this.response.speak("Question number " + count + ": " + ques7)
-            .listen("");
-    }
+    this.response.speak("Question number " + count + ": " + questions[num].ques).listen("");
     this.emit(':responseReady');
     count++;
   },
@@ -102,78 +83,12 @@ var handlers = {
    * is in the form of a string array.
   */
   
-  'quesOpt': function () { 
+  'quesOpt': function() { 
       let opt = "";
-      if(num == 0) {
-        for(let i = 0; i < ans1.length; i++) {
-          if(i < ans1.length - 1) {
-            opt += ans1[i] + ", ";
-          }
-          else {
-            opt += "or " + ans1[i];
-          }
-        }
+      for(let i = 0; i < questions[num].ans.length - 1; i++) {
+        opt += questions[num].ans[i] + ", ";
       }
-      else if(num == 1) {
-        for(let i = 0; i < ans2.length; i++) {
-          if(i < ans2.length - 1) {
-            opt += ans2[i] + ", ";
-          }
-          else {
-            opt += "or " + ans2[i];
-          }
-        }
-      }
-      else if(num == 2) {
-        for(let i = 0; i < ans3.length; i++) {
-          if(i < ans3.length - 1) {
-            opt += ans3[i] + ", ";
-          }
-          else {
-            opt += "or " + ans3[i];
-          }
-        }
-      }
-      else if(num == 3) {
-        for(let i = 0; i < ans4.length; i++) {
-          if(i < ans4.length - 1) {
-            opt += ans4[i] + ", ";
-          }
-          else {
-            opt += "or " + ans4[i];
-          }
-        }
-      }
-      else if(num == 4) {
-        for(let i = 0; i < ans5.length; i++) {
-          if(i < ans5.length - 1) {
-            opt += ans5[i] + ", ";
-          }
-          else {
-            opt += "or " + ans5[i];
-          }
-        }
-      }
-      else if(num == 5) {
-        for(let i = 0; i < ans6.length; i++) {
-          if(i < ans6.length - 1) {
-            opt += ans6[i] + ", ";
-          }
-          else {
-            opt += "or " + ans6[i];
-          }
-        }
-      }
-      else if(num == 6) {
-        for(let i = 0; i < ans7.length; i++) {
-          if(i < ans7.length - 1) {
-            opt += ans7[i] + ", ";
-          }
-          else {
-            opt += "or " + ans7[i];
-          }
-        }
-      }
+      opt += " or " + questions[num].ans[questions[num].ans.length - 1];
       this.response.speak("Your options are " + opt + ".").listen("Roger doger");
       this.emit(':responseReady');
   },
@@ -185,7 +100,7 @@ var handlers = {
    * or not.
   */ 
   
-  'answer' : function () {
+  'answer' : function() {
     let ans = this.event.request.intent.slots.actAns.value;
     this.response.speak(ansCheck(ans)).listen("");
     this.emit(':responseReady');
@@ -211,39 +126,10 @@ var handlers = {
    * question in order to ask Alexa to give another one. 
   */ 
   
-  'anotherQues': function () {
-    if(count > 1) {
-      num = getRandomInt();
-      if(num == 0) {
-        this.response.speak("Question number " + count + ": " + ques1)
-            .listen("");
-      }
-      else if(num == 1) {
-        this.response.speak("Question number " + count + ": " + ques2)
-            .listen("");
-      }
-      else if(num == 2) {
-        this.response.speak("Question number " + count + ": " + ques3)
-            .listen("");
-      }
-      else if(num ==3) {
-        this.response.speak("Question number " + count + ": " + ques4)
-            .listen("");
-    }
-    else if(num ==4) {
-        this.response.speak("Question number " + count + ": " + ques5)
-            .listen("");
-    }
-    else if(num ==5) {
-        this.response.speak("Question number " + count + ":" + ques6)
-            .listen("");
-    }
-    else if(num ==6) {
-        this.response.speak("Question number " + count + ": " + ques7)
-            .listen("");
-    }
-      this.emit(':responseReady');
-    }
+  'anotherQues': function() {
+    num = getRandomInt();
+    this.response.speak("Question number " + count + ": " + questions[num].ques).listen("");
+    this.emit(':responseReady');
     count++;
   },
 };
@@ -260,13 +146,13 @@ function ansCheck(actAns) {
     if(actAns == "four" || actAns == "4") {
       return "That is correct!";
     }
-    for(let i = 0; i < ans1.length; i++) {
-      if((actAns != "four" || actAns != "4") && actAns == ans1[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if((actAns != "four" || actAns != "4") && actAns == questions[num].ans) {
         return "That was an option, but incorrect. I pity your lack of intelligence";
       }
     }
-    for(let i = 0; i < ans1.length; i++) {
-      if((actAns != "four" || actAns != "4") && actAns != ans1[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if((actAns != "four" || actAns != "4") && actAns != questions[num].ans[i]) {
         return "Dude. That wasn't even an option. What are you doing.";
       }
     }
@@ -275,13 +161,13 @@ function ansCheck(actAns) {
     if(actAns == "mon cala") {
       return "That is correct!";
     }
-    for(let i = 0; i < ans2.length; i++) {
-      if(actAns != "mon mala" && actAns == ans2[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if(actAns != "mon mala" && actAns == questions[num].ans[i]) {
         return "That was an option, but incorrect. I pity your lack of intelligence";
       }
     }
-    for(let i = 0; i < ans2.length; i++) {
-      if(actAns != "mon cala" && actAns != ans2[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if(actAns != "mon cala" && actAns != questions[num].ans[i]) {
         return "Dude. That wasn't even an option. What are you doing.";
       }
     }
@@ -291,13 +177,13 @@ function ansCheck(actAns) {
     if(actAns == "soresu") {
       return "That is correct!";
     }
-    for(let i = 0; i < ans3.length; i++) {
-      if(actAns != "soresu" && actAns == ans3[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if(actAns != "soresu" && actAns == questions[num].ans[i]) {
         return "That was an option, but incorrect. I pity your lack of intelligence";
       }
     }
-    for(let i = 0; i < ans3.length; i++) {
-      if(actAns != "soresu" && actAns != ans3[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if(actAns != "soresu" && actAns != questions[num].ans[i]) {
         return "Dude. That wasn't even an option. What are you doing.";
       }
     }
@@ -306,13 +192,13 @@ function ansCheck(actAns) {
     if(actAns == "17,000" || actAns == "17,000 credits") {
       return "That is correct!";
     }
-    for(let i = 0; i < ans4.length; i++) {
-      if((actAns != "17,000 credits" || actAns != "17,000") && actAns == ans4[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if((actAns != "17,000 credits" || actAns != "17,000") && actAns == questions[num].ans[i]) {
         return "That was an option, but incorrect. I pity your lack of intelligence";
       }
     }
-    for(let i = 0; i < ans4.length; i++) {
-      if((actAns != "17,000 credits" || actAns != "17,000") && actAns != ans4[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if((actAns != "17,000 credits" || actAns != "17,000") && actAns != questions[num].ans[i]) {
         return "Dude. That wasn't even an option. What are you doing.";
       }
     }
@@ -321,13 +207,13 @@ function ansCheck(actAns) {
     if(actAns == "impersonating a stormtrooper") {
       return "That is correct!";
     }
-    for(let i = 0; i < ans5.length; i++) {
-      if(actAns != "impersonating a stormtrooper" && actAns == ans5[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if(actAns != "impersonating a stormtrooper" && actAns == questions[num].ans[i]) {
         return "That was an option, but incorrect. I pity your lack of intelligence";
       }
     }
-    for(let i = 0; i < ans4.length; i++) {
-      if(actAns != "impersonating a stormtrooper" && actAns != ans5[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if(actAns != "impersonating a stormtrooper" && actAns != questions[num].ans[i]) {
         return "Dude. That wasn't even an option. What are you doing.";
       }
     }
@@ -336,13 +222,13 @@ function ansCheck(actAns) {
     if(actAns == "nothing" || actAns == "she says nothing") {
       return "That is correct!";
     }
-    for(let i = 0; i < ans6.length; i++) {
-      if((actAns != "nothing" || actAns != "she says nothing") && actAns == ans6[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if((actAns != "nothing" || actAns != "she says nothing") && actAns == questions[num].ans[i]) {
         return "That was an option, but incorrect. I pity your lack of intelligence";
       }
     }
-    for(let i = 0; i < ans6.length; i++) {
-      if((actAns != "nothing" || actAns != "she says nothing") && actAns != ans6[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if((actAns != "nothing" || actAns != "she says nothing") && actAns != questions[num].ans[i]) {
         return "Dude. That wasn't even an option. What are you doing.";
       }
     }
@@ -351,13 +237,13 @@ function ansCheck(actAns) {
     if(actAns == "chalmun's spaceport cantina" || actAns == "chalmun's") {
       return "That is correct!";
     }
-    for(let i = 0; i < ans7.length; i++) {
-      if((actAns != "chalmun's spaceport cantina" || actAns != "chalmun's") && actAns == ans7[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if((actAns != "chalmun's spaceport cantina" || actAns != "chalmun's") && actAns == questions[num].ans[i]) {
         return "That was an option, but incorrect. I pity your lack of intelligence";
       }
     }
-    for(let i = 0; i < ans7.length; i++) {
-      if((actAns != "chalmun's spaceport cantina" || actAns != "chalmun's") && actAns != ans7[i]) {
+    for(let i = 0; i < questions[num].ans.length; i++) {
+      if((actAns != "chalmun's spaceport cantina" || actAns != "chalmun's") && actAns != questions[num].ans[i]) {
         return "Dude. That wasn't even an option. What are you doing.";
       }
     }
